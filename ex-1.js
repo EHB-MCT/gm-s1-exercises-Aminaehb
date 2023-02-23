@@ -2,7 +2,8 @@
 
 let loc;
 let speed;
-
+let acceleration;
+let m = 5 // massa = 5
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -10,30 +11,46 @@ function setup() {
     //y = windowHeight / 2;
 
     loc = createVector(windowWidth / 2, windowHeight / 2);
-    //speed = createVector(1, 1); 
-    speed = p5.Vector.random2D(); //andere richting maar dezelfde snelheid 
-    //Random2D= creeert unit vector = grote blijft 1 = dezelfde snelheid 1
-    // multiple om het sneller te doen
-    speed.mult(2); //beweegt snel maar constant = ablletje beweegt 2keer zo snel
+    speed = createVector(1, 2);
+    acceleration = createVector();
+
 }
 
 function draw() {
     background(255);
     fill(0);
 
-    //edge detection
+
     if ((loc.x > windowWidth) || (loc.x < 0)) {
-        speed.x *= -1; // xSpeed *= -1;
+        speed.x *= -1;
     }
     if ((loc.y > windowHeight) || (loc.y < 0)) {
-        speed.x *= -1; //ySpeed *= -1
+        speed.x *= -1;
     }
 
+
+    // add gravity 
+    let gravity = createVector(0, 3);
+    applyForce(gravity);
+
+
+    if (mouseIsPressed) {
+        let wind = createVector(-1, 0);
+        applyForce(wind);
+    }
+
+    speed.add(acceleration)
     loc.add(speed)
 
-    //loc.x += speed;
-    //loc.y += speed;
 
-    ellipse(loc.x, loc.y, 50);
+    ellipse(loc.x, loc.y, m * 10);
+
+}
+
+function addForce(force) {
+
+    let f = force.copy()
+    f.div(m) //force divided by massa
+    acceleration.add(f);
 
 }
