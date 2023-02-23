@@ -21,6 +21,7 @@ function draw() {
     let mouse = createVector(mouseX, mouseY);
 
     background(200);
+    
 
 
     //line(mouseX, 0, mouseX, 100);
@@ -33,7 +34,7 @@ function draw() {
     translate(w/2, h/2);
     line (0, 0, mouse.x, mouse.y)
 
-    
+
 
     //describe('horizontal black line moves left and right with mouse x-position');
 }
